@@ -49,17 +49,6 @@ $font-family-sans-serif: 'Roboto Slab', serif;
   height: 100px; 
 }
 
-/* Other slides logos at the bottom */
-.bottom-logos {
-  display: fix;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0px;
-}
-
-img.logo {
-  height: 50px; 
-}
 .reveal p, li {
   font-weight: 100;
 }
@@ -93,17 +82,11 @@ code span.at {
   color: $theme-blue;
 }
 
-#centered-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#centered-slide .centerlink {
+.reveal .slide .centerlink {
   text-decoration: underline;
   color: $theme-blue;
-  text-align: center;
-  font-size: 20px; 
+  text-align: center !important;
+  font-size: 20px !important;
 }
 
 code span.st {

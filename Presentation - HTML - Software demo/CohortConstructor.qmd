@@ -51,26 +51,22 @@ An R package to build and curate cohorts in the OMOP Common Data Model
 -   The code is publicly available in OHDSI's GitHub repository [CohortConstructor](https://github.com/OHDSI/CohortConstructor).
 
 ::: {style="margin-bottom: 10px;"}
-::: 
+:::
 
 -   Vignettes with further information can be found in the package [website](https://ohdsi.github.io/CohortConstructor/index.html){.link}.
-
-
 
 ## Building base cohorts
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
-
-- Base cohorts are built **by domain** rather than by cohort definition.
+-   Base cohorts are built **by domain** rather than by cohort definition.
 
 ::: {style="margin-bottom: 5px;"}
-::: 
+:::
 
-- This approach reduces the joins to OMOP CDM tables by using all the `concept sets` together, making it less computationally expensive.
+-   This approach reduces the joins to OMOP CDM tables by using all the `concept sets` together, making it less computationally expensive.
 
 . . .
-
 
 ![Workflow to built 5 base cohorts: asthma, COPD, diabetes, acetaminophen and warfarin.](cohort_by_domain.png)
 
@@ -79,9 +75,9 @@ An R package to build and curate cohorts in the OMOP Common Data Model
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 15px;"}
-::: 
+:::
 
-- Relevant packages 
+-   Relevant packages
 
 . . .
 
@@ -94,9 +90,9 @@ library(dplyr)
 ```
 
 ::: {style="margin-bottom: 15px;"}
-::: 
+:::
 
-- Mock connexion
+-   Mock connexion
 
 . . .
 
@@ -109,12 +105,12 @@ cdm <- cdm_from_con(con, cdm_schema = "main",
 cdm
 ```
 
-## Demographic based 
+## Demographic based
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 15px;"}
-::: 
+:::
 
 ```{r}
 cdm$age_cohort <- demographicsCohort(cdm = cdm, 
@@ -142,16 +138,14 @@ cohortCount(cdm$age_cohort)
 attrition(cdm$age_cohort)
 ```
 
-
 ## Concept based {.incremental:FALSE}
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 15px;"}
-::: 
+:::
 
-
-- Get relevant codelists
+-   Get relevant codelists
 
 . . .
 
@@ -161,7 +155,7 @@ drug_codes <- getDrugIngredientCodes(cdm,
 drug_codes
 ```
 
-- Create concept based cohorts
+-   Create concept based cohorts
 
 . . .
 
@@ -172,15 +166,14 @@ cdm$medications <- conceptCohort(cdm = cdm,
 settings(cdm$medications)
 ```
 
-
-## Concept based 
+## Concept based
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 15px;"}
-::: 
+:::
 
-- Cohort codelist as an attribute
+-   Cohort codelist as an attribute
 
 . . .
 
@@ -188,56 +181,47 @@ settings(cdm$medications)
 attr(cdm$medications, "cohort_codelist")
 ```
 
-
 ## Applying cohort restrictions {.incremental:FALSE}
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 15px;"}
-::: 
+:::
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="50%"}
-
 **Current approach**
 
 ::: {layout="[[-1], [1], [-1]]"}
-
 ![](combined_cohort_1.png)
-
 :::
 :::
 
 ::: {.column width="50%"}
-
 **CohortConstructor**
 
 ::: {layout="[[-1], [1], [-1]]"}
-
 ![](combined_cohort_2.png)
 :::
 :::
-
-::::
-
+:::
 
 ## Requirement functions
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 10px;"}
-::: 
+:::
 
-- We can apply different inclusion and exclusion criteria using CohortConstructor's functions in a pipe-line fashion. For instance, in what follows we require
+-   We can apply different inclusion and exclusion criteria using CohortConstructor's functions in a pipe-line fashion. For instance, in what follows we require
 
-  + only first record per person 
+    -   only first record per person
 
-  + subjects 18 years old or more at cohort start date
+    -   subjects 18 years old or more at cohort start date
 
-  + only females
+    -   only females
 
-  + more than 180 days of prior observation at cohort start date
+    -   more than 180 days of prior observation at cohort start date
 
 . . .
 
@@ -256,7 +240,7 @@ cdm$medications <- cdm$medications %>%
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 10px;"}
-::: 
+:::
 
 ```{r}
 attrition(cdm$medications)
@@ -267,12 +251,12 @@ attrition(cdm$medications)
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 10px;"}
-::: 
+:::
 
-- Require no history of GI bleed
- 
+-   Require no history of GI bleed
+
 . . .
- 
+
 ```{r}
 cdm$medications_no_gi_bleed <- cdm$medications %>%
   requireConceptIntersectFlag(conceptSet = list("gi_bleed" = 192671), 
@@ -288,25 +272,29 @@ attrition(cdm$medications_no_gi_bleed)
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 15px;"}
-::: 
+:::
 
-- There are other requirement functions to 
+- Require death event: `requireDeathFlag()`
 
-  + require absence/presence in cohorts and tables in the database: `requireCohortIntersectFlag()` and ``requireTableIntersectFlag()`
+::: {style="margin-bottom: 15px;"}
+:::
 
-  + restrict to the last cohort entry: `requireIsLastEntry()`
- 
-  + require death event: `requireDeathFlag()`
- 
+- Require absence/presence in cohorts and tables in the database: `requireCohortIntersectFlag()` and `requireTableIntersectFlag()`
+    
+::: {style="margin-bottom: 15px;"}
+:::
+
+- Restrict to the last cohort entry: `requireIsLastEntry()`
+
 
 ## Update cohort start and end dates
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
-::: {style="margin-bottom: 10px;"}
-::: 
+::: {style="margin-bottom: 15px;"}
+:::
 
-- We can set the end date to the end of the subject's observation period
+-   We can set the end date to the end of the subject's observation period
 
 . . .
 
@@ -318,8 +306,8 @@ cdm$medications
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
-::: {style="margin-bottom: 10px;"}
-::: 
+::: {style="margin-bottom: 25px;"}
+:::
 
 ```{r}
 cdm$medications <- cdm$medications %>%
@@ -333,11 +321,11 @@ cdm$medications
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 10px;"}
-::: 
+:::
 
 - We can also trim start and end dates to match demographic requirements.
 
-- i.e. cohort dates can be trimmed so the subject contributes time while he is 20 to 40 years old, and has a prior observation of 365 days
+  + i.e. cohort dates can be trimmed so the subject contributes time while he is 20 to 40 years old, and has a prior observation of 365 days
 
 . . .
 
@@ -350,37 +338,37 @@ cdm$medications_trimmed <- cdm$medications %>%
 attrition(cdm$medications_trimmed)
 ```
 
-## Other update cohort start and end dates
+## Other functions to update cohort start and end dates
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 15px;"}
-::: 
+:::
 
-- Updating entry/exit dates to the minimum or maximum of a set of dates: 
+-   Updating entry/exit dates to the minimum or maximum of a set of dates:
 
-  + entryAtFirstDate()
+    -   `entryAtFirstDate()`
 
-  + entryAtLastDate()
+    -   `entryAtLastDate()`
 
-  + exitAtDeath()
+    -   `exitAtDeath()`
 
-  + exitAtFirstDate()
+    -   `exitAtFirstDate()`
 
-  + exitAtLastDate()
+    -   `exitAtLastDate()`
 
-  + For instance, we can use `exitAtFirstDate()` to require that that subjects leave the cohort at the first of the the outcome of interest, a censoring event, or the end of observation.
-  
-- Trim cohort start and end date to be within a certain time period: `trimToDateRange()`
++ For instance, we can use `exitAtFirstDate()` to require that that subjects leave the cohort at the first of the the outcome of interest, a censoring event, or the end of observation.
+
+-   Trim cohort start and end date to be within a certain time period: `trimToDateRange()`
 
 ## Cohort manipulation functions
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 10px;"}
-::: 
+:::
 
-- For instance, we can generate a new cohort that contains people who had an expsure to both diclofenac and acetaminophen at the same time.
+-   For instance, we can generate a new cohort that contains people who had an expsure to both diclofenac and acetaminophen at the same time.
 
 . . .
 
@@ -401,11 +389,11 @@ settings(cdm$intersection)
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 25px;"}
-::: 
+:::
 
-- The `matchCohort` functions generates a new cohort by matching on age and sex from a target cohort.
+-   The `matchCohort` functions generates a new cohort by matching on age and sex from a target cohort.
 
-- For example, to compare individuals who take diclofenac to the general population, we can create a matched cohort as follows:
+-   For example, to compare individuals who take diclofenac to the general population, we can create a matched cohort as follows:
 
 . . .
 
@@ -421,21 +409,35 @@ cdm$diclofenac_match <- cdm$medications %>%
 settings(cdm$diclofenac_match)
 ```
 
-```{r}
-cohortCount(cdm$diclofenac_match)
-```
-
-## More functionalities {.reveal #centered-slide}
-
-Refer to the package web site to see all the available functionalities to create and curate cohorts in your OMOP studies :)
-
-. . .
-
-[CohortConstructor](https://ohdsi.github.io/CohortConstructor/reference/index.html){.centerlink}
-
-## QR to this presentation
+## Matched cohort
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 25px;"}
-::: 
+:::
+
+```{r}
+cohortCount(cdm$diclofenac_match)
+```
+
+. . .
+
+```{r}
+attrition(cdm$diclofenac_match)
+```
+
+## [CohortConstructor](https://ohdsi.github.io/CohortConstructor/reference/index.html)  {.title-slide}
+
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+Refer to the package website to see all the available functionalities to create and curate cohorts in your OMOP studies :)
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: title-slide-logos
+<img src="logoCC.png" alt="Logo 1" class="logo"/> <img src="logoHDS.png" alt="Logo 2" class="logo"/> <img src="logoOHDSI.png" alt="Logo 3" class="logo"/>
+:::
+
