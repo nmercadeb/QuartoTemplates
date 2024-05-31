@@ -418,21 +418,98 @@
 </div>
 <ul>
 <li class="fragment">Vignettes with further information can be found in the package <a href="https://ohdsi.github.io/CohortConstructor/index.html" class="link">website</a>.</li>
-</ul></section><section id="building-base-cohorts" class="slide level2"><h2>Building base cohorts</h2>
-<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
-<ul>
-<li class="fragment">Base cohorts are built <strong>by domain</strong> rather than by cohort definition.</li>
 </ul>
-<div style="margin-bottom: 5px;">
+<div style="margin-bottom: 10px;">
 
 </div>
 <ul>
-<li class="fragment">This approach reduces the joins to OMOP CDM tables by using all the <code>concept sets</code> together, making it less computationally expensive.</li>
-</ul>
-<div class="fragment">
-<div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="cohort_by_domain.png"></p>
-<figcaption>Workflow to built 5 base cohorts: asthma, COPD, diabetes, acetaminophen and warfarin.</figcaption></figure>
+<li class="fragment">Soon in CRAN?? :)</li>
+</ul></section><section id="function-sets" class="slide level2"><h2>Function sets</h2>
+<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
+<div class="columns">
+<div class="column" style="width:5%;">
+
+</div><div class="column" style="width:40%;">
+<div class="bulletbox">
+<div class="fragment fade-in-then-semi-out">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><strong>Built base cohorts</strong> <em>Cohort construction based on concept sets or demographic requirements on the database population.</em></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:40%;">
+<div class="bulletbox">
+<div class="fragment fade-in-then-semi-out">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><strong>Applying cohort requirements</strong> <em>Impose study specific inclusion and exclusion criteria to cohorts in the database.</em></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:5%;">
+
+</div><div class="column" style="width:40%;">
+<div class="bulletbox">
+<div class="fragment fade-in-then-semi-out">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><strong>Update cohort start and end dates</strong> <em>Modify start and end dates of subject’s in a cohort.</em></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:40%;">
+<div class="bulletbox">
+<div class="fragment fade-in-then-semi-out">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><strong>Cohort manipulation</strong> <em>Generate new cohorts by manipulating a set of cohorts in the database.</em></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:5%;">
+
 </div>
 </div>
 </section><section id="set-up" class="slide level2 incremental:FALSE"><h2>Set up</h2>
@@ -447,7 +524,6 @@
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CDMConnector/">CDMConnector</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CodelistGenerator/">CodelistGenerator</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu-dev.github.io/PatientProfiles/">PatientProfiles</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ohdsi.github.io/CohortConstructor/">CohortConstructor</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -455,7 +531,7 @@
 
 </div>
 <ul>
-<li class="fragment">Mock connexion</li>
+<li class="fragment">Let’s create a cdm object (Eunomia database)</li>
 </ul>
 </div>
 <div class="fragment">
@@ -466,15 +542,58 @@
 <span>                    write_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"my_study_"</span>, schema <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cdm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
+care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
+domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
+drug_strength</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• cohort tables: -</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• achilles tables: -</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• other tables: -</code></pre>
 </div>
 </div>
-</section><section id="demographic-based" class="slide level2"><h2>Demographic based</h2>
+</div>
+</section></section><section><section id="built-base-cohorts" class="title-slide slide level1 center"><h1>Built base cohorts</h1>
+
+</section><section id="functions-to-build-base-cohorts" class="slide level2"><h2>Functions to build base cohorts</h2>
+<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
+<div style="margin-bottom: 25px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/demographicsCohort.html">demographicsCohort()</a></code></li>
+</ul>
+<div style="margin-bottom: 10px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/conceptCohort.html">conceptCohort()</a></code></li>
+</ul>
+<div style="margin-bottom: 10px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/measurementCohort.html">measurementCohort()</a></code></li>
+</ul></section><section id="demographic-based---example" class="slide level2"><h2>Demographic based - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 15px;">
 
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">age_cohort</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/demographicsCohort.html">demographicsCohort</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span>, </span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">age_cohort</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/demographicsCohort.html">demographicsCohort</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span>, </span>
 <span>                                     ageRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">65</span><span class="op">)</span>, </span>
 <span>                                     name <span class="op">=</span> <span class="st">"age_cohort"</span><span class="op">)</span></span>
 <span></span>
@@ -491,7 +610,7 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">age_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">age_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   cohort_definition_id number_records number_subjects
@@ -505,21 +624,34 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">age_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">age_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
-  cohort_definition_id number_records number_subjects reason_id
-                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt;
-1                    1           2694            2694         1
-2                    1           2694            2694         2
-  reason                    excluded_records excluded_subjects
-  &lt;chr&gt;                                &lt;int&gt;             &lt;int&gt;
-1 Initial qualifying events                0                 0
-2 Age requirement: 18 to 65                0                 0</code></pre>
+  cohort_definition_id number_records number_subjects reason_id reason                    excluded_records excluded_subjects
+                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                &lt;int&gt;             &lt;int&gt;
+1                    1           2694            2694         1 Initial qualifying events                0                 0
+2                    1           2694            2694         2 Age requirement: 18 to 65                0                 0</code></pre>
 </div>
 </div>
 </div>
-</section><section id="concept-based" class="slide level2 incremental:FALSE"><h2>Concept based</h2>
+</section><section id="concept-based---example" class="slide level2"><h2>Concept based - Example</h2>
+<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
+<ul>
+<li class="fragment">Base cohorts are built <strong>by domain</strong> rather than by cohort definition.</li>
+</ul>
+<div style="margin-bottom: 5px;">
+
+</div>
+<ul>
+<li class="fragment">This approach reduces the joins to OMOP CDM tables by using all the <code>concept sets</code> together, making it less computationally expensive.</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="cohort_by_domain.png"></p>
+<figcaption>Workflow to built 5 base cohorts: asthma, COPD, diabetes, acetaminophen and warfarin.</figcaption></figure>
+</div>
+</div>
+</section><section id="concept-based---example-1" class="slide level2 incremental:FALSE"><h2>Concept based - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 15px;">
 
@@ -529,7 +661,7 @@
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">drug_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html">getDrugIngredientCodes</a></span><span class="op">(</span><span class="va">cdm</span>, </span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">drug_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html">getDrugIngredientCodes</a></span><span class="op">(</span><span class="va">cdm</span>, </span>
 <span>                                     name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"diclofenac"</span>, <span class="st">"acetaminophen"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">drug_codes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -544,7 +676,7 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/conceptCohort.html">conceptCohort</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span>, </span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/conceptCohort.html">conceptCohort</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span>, </span>
 <span>                                 conceptSet <span class="op">=</span> <span class="va">drug_codes</span>, </span>
 <span>                                 name <span class="op">=</span> <span class="st">"medications"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/settings.html">settings</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -557,7 +689,7 @@
 </div>
 </div>
 </div>
-</section><section id="concept-based-1" class="slide level2"><h2>Concept based</h2>
+</section><section id="concept-based---example-2" class="slide level2"><h2>Concept based - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 15px;">
 
@@ -567,10 +699,10 @@
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span>, <span class="st">"cohort_codelist"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span>, <span class="st">"cohort_codelist"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [8 x 4]
-# Database: DuckDB v0.10.1 [nmercade@Windows 10 x64:R 4.2.2/C:\Users\nmercade\AppData\Local\Temp\Rtmpigg7TU\file4e0c6fd444c8.duckdb]
+# Database: DuckDB v0.10.2 [nuriamb@Windows 10 x64:R 4.2.3/C:\Users\nuriamb\AppData\Local\Temp\Rtmp2z7qI1\file78f028083a6c.duckdb]
   cohort_definition_id codelist_name concept_id type       
                  &lt;int&gt; &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;      
 1                    1 diclofenac       1124300 index event
@@ -584,7 +716,65 @@
 </div>
 </div>
 </div>
-</section><section id="applying-cohort-restrictions" class="slide level2 incremental:FALSE"><h2>Applying cohort restrictions</h2>
+</section></section><section><section id="applying-cohort-requirements" class="title-slide slide level1 center"><h1>Applying cohort requirements</h1>
+
+</section><section id="functions-to-apply-cohort-requirements" class="slide level2"><h2>Functions to apply cohort requirements</h2>
+<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
+<div style="margin-bottom: 10px;">
+
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment">
+<p>On demographics</p>
+<ul>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireDemographics.html">requireDemographics()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireAge.html">requireAge()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireSex.html">requireSex()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requirePriorObservation.html">requirePriorObservation()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireFutureObservation.html">requireFutureObservation()</a></code></p></li>
+</ul>
+</li>
+</ul>
+<div style="margin-bottom: 10px;">
+
+</div>
+<ul>
+<li class="fragment">
+<p>On cohort entries</p>
+<ul>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireIsFirstEntry.html">requireIsFirstEntry()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireIsLastEntry.html">requireIsLastEntry()</a></code></p></li>
+</ul>
+</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment">
+<p>On cohort dates</p>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireInDateRange.html">requireInDateRange()</a></code></li>
+</ul>
+</li>
+</ul>
+<div style="margin-bottom: 10px;">
+
+</div>
+<ul>
+<li class="fragment">
+<p>Require presence or absence based on other cohorts, tables and concepts</p>
+<ul>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireCohortIntersectFlag.html">requireCohortIntersectFlag()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireConceptIntersectFlag.html">requireConceptIntersectFlag()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireTableIntersectFlag.html">requireTableIntersectFlag()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireDeathFlag.html">requireDeathFlag()</a></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="deriving-study-cohorts-from-base-cohorts" class="slide level2 incremental:FALSE"><h2>Deriving study cohorts from base cohorts</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 15px;">
 
@@ -592,35 +782,13 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Current approach</strong></p>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<p>&nbsp;</p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img data-src="combined_cohort_1.png"></p>
-</div>
-</div>
-</div>
 </div><div class="column" style="width:50%;">
 <p><strong>CohortConstructor</strong></p>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<p>&nbsp;</p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img data-src="combined_cohort_2.png"></p>
 </div>
 </div>
-</div>
-</div>
-</div>
-</section><section id="requirement-functions" class="slide level2"><h2>Requirement functions</h2>
+</section><section id="requirement-functions---example" class="slide level2"><h2>Requirement functions - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
@@ -638,7 +806,7 @@
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/requireIsFirstEntry.html">requireIsFirstEntry</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/requireDemographics.html">requireDemographics</a></span><span class="op">(</span></span>
 <span>    ageRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">85</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -647,46 +815,32 @@
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</section><section id="requirement-functions-1" class="slide level2"><h2>Requirement functions</h2>
+</section><section id="requirement-functions---example-1" class="slide level2"><h2>Requirement functions - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 7
-   cohort_definition_id number_records number_subjects reason_id
-                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt;
- 1                    1            830             830         1
- 2                    1            830             830         2
- 3                    1            830             830         3
- 4                    1            435             435         4
- 5                    1            435             435         5
- 6                    1            435             435         6
- 7                    2          13839            2679         1
- 8                    2           2679            2679         2
- 9                    2            308             308         3
-10                    2            175             175         4
-11                    2            175             175         5
-12                    2            175             175         6
-   reason                                 excluded_records excluded_subjects
-   &lt;chr&gt;                                             &lt;int&gt;             &lt;int&gt;
- 1 Initial qualifying events                             0                 0
- 2 Restricted to first entry                             0                 0
- 3 Age requirement: 18 to 85                             0                 0
- 4 Sex requirement: Female                             395               395
- 5 Prior observation requirement: 30 days                0                 0
- 6 Future observation requirement: 0 days                0                 0
- 7 Initial qualifying events                             0                 0
- 8 Restricted to first entry                         11160                 0
- 9 Age requirement: 18 to 85                          2371              2371
-10 Sex requirement: Female                             133               133
-11 Prior observation requirement: 30 days                0                 0
-12 Future observation requirement: 0 days                0                 0</code></pre>
+   cohort_definition_id number_records number_subjects reason_id reason                         excluded_records excluded_subjects
+                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                     &lt;int&gt;             &lt;int&gt;
+ 1                    1            830             830         1 Initial qualifying events                     0                 0
+ 2                    1            830             830         2 Restricted to first entry                     0                 0
+ 3                    1            830             830         3 Age requirement: 18 to 85                     0                 0
+ 4                    1            435             435         4 Sex requirement: Female                     395               395
+ 5                    1            435             435         5 Prior observation requirement…                0                 0
+ 6                    1            435             435         6 Future observation requiremen…                0                 0
+ 7                    2          13839            2679         1 Initial qualifying events                     0                 0
+ 8                    2           2679            2679         2 Restricted to first entry                 11160                 0
+ 9                    2            308             308         3 Age requirement: 18 to 85                  2371              2371
+10                    2            175             175         4 Sex requirement: Female                     133               133
+11                    2            175             175         5 Prior observation requirement…                0                 0
+12                    2            175             175         6 Future observation requiremen…                0                 0</code></pre>
 </div>
 </div>
-</section><section id="requirement-functions-2" class="slide level2"><h2>Requirement functions</h2>
+</section><section id="requirement-functions---example-2" class="slide level2"><h2>Requirement functions - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
@@ -696,7 +850,7 @@
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_no_gi_bleed</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_no_gi_bleed</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/requireConceptIntersectFlag.html">requireConceptIntersectFlag</a></span><span class="op">(</span>conceptSet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"gi_bleed"</span> <span class="op">=</span> <span class="fl">192671</span><span class="op">)</span>, </span>
 <span>                             indexDate <span class="op">=</span> <span class="st">"cohort_start_date"</span>, </span>
 <span>                             window <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">0</span><span class="op">)</span>, </span>
@@ -705,80 +859,70 @@
 <span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_no_gi_bleed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14 × 7
-   cohort_definition_id number_records number_subjects reason_id
-                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt;
- 1                    1            830             830         1
- 2                    1            830             830         2
- 3                    1            830             830         3
- 4                    1            435             435         4
- 5                    1            435             435         5
- 6                    1            435             435         6
- 7                    1            435             435         7
- 8                    2          13839            2679         1
- 9                    2           2679            2679         2
-10                    2            308             308         3
-11                    2            175             175         4
-12                    2            175             175         5
-13                    2            175             175         6
-14                    2            175             175         7
-   reason                                                                     
-   &lt;chr&gt;                                                                      
- 1 Initial qualifying events                                                  
- 2 Restricted to first entry                                                  
- 3 Age requirement: 18 to 85                                                  
- 4 Sex requirement: Female                                                    
- 5 Prior observation requirement: 30 days                                     
- 6 Future observation requirement: 0 days                                     
- 7 Not in concept gi_bleed between -Inf &amp; 0 days relative to cohort_start_date
- 8 Initial qualifying events                                                  
- 9 Restricted to first entry                                                  
-10 Age requirement: 18 to 85                                                  
-11 Sex requirement: Female                                                    
-12 Prior observation requirement: 30 days                                     
-13 Future observation requirement: 0 days                                     
-14 Not in concept gi_bleed between -Inf &amp; 0 days relative to cohort_start_date
-   excluded_records excluded_subjects
-              &lt;int&gt;             &lt;int&gt;
- 1                0                 0
- 2                0                 0
- 3                0                 0
- 4              395               395
- 5                0                 0
- 6                0                 0
- 7                0                 0
- 8                0                 0
- 9            11160                 0
-10             2371              2371
-11              133               133
-12                0                 0
-13                0                 0
-14                0                 0</code></pre>
+   cohort_definition_id number_records number_subjects reason_id reason                         excluded_records excluded_subjects
+                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                     &lt;int&gt;             &lt;int&gt;
+ 1                    1            830             830         1 Initial qualifying events                     0                 0
+ 2                    1            830             830         2 Restricted to first entry                     0                 0
+ 3                    1            830             830         3 Age requirement: 18 to 85                     0                 0
+ 4                    1            435             435         4 Sex requirement: Female                     395               395
+ 5                    1            435             435         5 Prior observation requirement…                0                 0
+ 6                    1            435             435         6 Future observation requiremen…                0                 0
+ 7                    1            435             435         7 Not in concept gi_bleed betwe…                0                 0
+ 8                    2          13839            2679         1 Initial qualifying events                     0                 0
+ 9                    2           2679            2679         2 Restricted to first entry                 11160                 0
+10                    2            308             308         3 Age requirement: 18 to 85                  2371              2371
+11                    2            175             175         4 Sex requirement: Female                     133               133
+12                    2            175             175         5 Prior observation requirement…                0                 0
+13                    2            175             175         6 Future observation requiremen…                0                 0
+14                    2            175             175         7 Not in concept gi_bleed betwe…                0                 0</code></pre>
 </div>
 </div>
 </div>
-</section><section id="more-requirement-functions" class="slide level2"><h2>More requirement functions</h2>
+</section></section><section><section id="update-cohort-start-and-end-dates" class="title-slide slide level1 center"><h1>Update cohort start and end dates</h1>
+
+</section><section id="functions-to-update-cohort-start-and-end-dates" class="slide level2"><h2>Functions to update cohort start and end dates</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
-<div style="margin-bottom: 15px;">
+<div style="margin-bottom: 10px;">
 
 </div>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li class="fragment">Require death event: <code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireDeathFlag.html">requireDeathFlag()</a></code>
+<li class="fragment">
+<p>Cohort exit</p>
+<ul>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtObservationEnd.html">exitAtObservationEnd()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtDeath.html">exitAtDeath()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtFirstDate.html">exitAtFirstDate()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtLastDate.html">exitAtLastDate()</a></code></p></li>
+</ul>
 </li>
 </ul>
-<div style="margin-bottom: 15px;">
+<div style="margin-bottom: 10px;">
 
 </div>
 <ul>
-<li class="fragment">Require absence/presence in cohorts and tables in the database: <code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireCohortIntersectFlag.html">requireCohortIntersectFlag()</a></code> and <code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireTableIntersectFlag.html">requireTableIntersectFlag()</a></code>
+<li class="fragment">
+<p>Cohort entry</p>
+<ul>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/entryAtFirstDate.html">entryAtFirstDate()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/entryAtLastDate.html">entryAtLastDate()</a></code></p></li>
+</ul>
 </li>
 </ul>
-<div style="margin-bottom: 15px;">
-
-</div>
+</div><div class="column" style="width:50%;">
 <ul>
-<li class="fragment">Restrict to the last cohort entry: <code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireIsLastEntry.html">requireIsLastEntry()</a></code>
+<li class="fragment">
+<p>Trim start and end dates</p>
+<ul>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/trimDemographics.html">trimDemographics()</a></code></p></li>
+<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/trimToDateRange.html">trimToDateRange()</a></code></p></li>
+</ul>
 </li>
-</ul></section><section id="update-cohort-start-and-end-dates" class="slide level2"><h2>Update cohort start and end dates</h2>
+</ul>
+</div>
+</div>
+</section><section id="update-cohort-start-and-end-dates---example" class="slide level2"><h2>Update cohort start and end dates - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 15px;">
 
@@ -788,62 +932,37 @@
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Source:   SQL [?? x 4]
-# Database: DuckDB v0.10.1 [nmercade@Windows 10 x64:R 4.2.2/C:\Users\nmercade\AppData\Local\Temp\Rtmpigg7TU\file4e0c6fd444c8.duckdb]
-   cohort_definition_id subject_id cohort_start_date cohort_end_date
-                  &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;         
- 1                    2         79 1979-02-15        1979-03-08     
- 2                    1        177 2000-05-31        2000-05-31     
- 3                    1        276 2013-01-16        2013-01-16     
- 4                    1        316 1962-09-12        1962-09-12     
- 5                    2        341 1989-04-10        1989-05-01     
- 6                    1        492 1986-06-16        1986-06-16     
- 7                    1        800 1994-07-09        1994-07-09     
- 8                    2        823 1964-08-08        1964-08-22     
- 9                    1        992 1987-07-31        1987-07-31     
-10                    2       1016 2000-12-19        2001-01-02     
-# ℹ more rows</code></pre>
-</div>
-</div>
-</div>
-</section><section id="update-cohort-start-and-end-dates-1" class="slide level2"><h2>Update cohort start and end dates</h2>
-<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
-<div style="margin-bottom: 25px;">
-
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtObservationEnd.html">exitAtObservationEnd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;main.my_study_medications&gt; [?? x 4]
-# Database: DuckDB v0.10.1 [nmercade@Windows 10 x64:R 4.2.2/C:\Users\nmercade\AppData\Local\Temp\Rtmpigg7TU\file4e0c6fd444c8.duckdb]
+# Database: DuckDB v0.10.2 [nuriamb@Windows 10 x64:R 4.2.3/C:\Users\nuriamb\AppData\Local\Temp\Rtmp2z7qI1\file78f028083a6c.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;         
- 1                    1        410 1986-12-16        2019-03-08     
- 2                    1       4576 1993-03-31        2018-09-26     
- 3                    2       3835 1984-10-06        2018-10-06     
- 4                    1       2084 1999-08-17        2018-12-26     
- 5                    1       1154 2006-07-14        2019-02-02     
- 6                    1       3392 2002-02-10        2018-07-15     
- 7                    1       2319 1990-02-24        2019-03-16     
- 8                    2       1844 1977-07-15        2018-11-21     
- 9                    1       3307 2003-07-05        2018-11-09     
-10                    1       2602 1986-11-14        2019-06-11     
+ 1                    1       2832 2000-06-25        2018-09-09     
+ 2                    1       1820 2014-08-17        2019-02-21     
+ 3                    1       4690 2001-03-20        2018-10-14     
+ 4                    1        726 1991-06-12        2018-07-13     
+ 5                    1       5255 1996-08-26        2018-06-28     
+ 6                    1        732 2015-11-19        2018-05-03     
+ 7                    1       1348 1954-03-06        2002-04-22     
+ 8                    2       3529 1993-04-11        2018-10-24     
+ 9                    1       3253 2005-12-31        2018-08-19     
+10                    1       3961 2011-09-15        2019-02-26     
 # ℹ more rows</code></pre>
 </div>
 </div>
-</section><section id="update-cohort-start-and-end-dates-2" class="slide level2"><h2>Update cohort start and end dates</h2>
+</div>
+</section><section id="update-cohort-start-and-end-dates---example-1" class="slide level2"><h2>Update cohort start and end dates - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
 </div>
 <ul>
 <li class="fragment">
-<p>We can also trim start and end dates to match demographic requirements.</p>
+<p>We can also trim start and end dates to match demographic requirements</p>
 <ul>
 <li class="fragment">i.e.&nbsp;cohort dates can be trimmed so the subject contributes time while he is 20 to 40 years old, and has a prior observation of 365 days</li>
 </ul>
@@ -851,7 +970,7 @@
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_trimmed</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_trimmed</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/trimDemographics.html">trimDemographics</a></span><span class="op">(</span>ageRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                   minPriorObservation <span class="op">=</span> <span class="fl">365</span>,</span>
 <span>                   name <span class="op">=</span> <span class="st">"medications_trimmed"</span><span class="op">)</span></span>
@@ -859,78 +978,85 @@
 <span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_trimmed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 18 × 7
-   cohort_definition_id number_records number_subjects reason_id
-                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt;
- 1                    1            830             830         1
- 2                    1            830             830         2
- 3                    1            830             830         3
- 4                    1            435             435         4
- 5                    1            435             435         5
- 6                    1            435             435         6
- 7                    1            435             435         7
- 8                    1            320             320         8
- 9                    1            320             320         9
-10                    2          13839            2679         1
-11                    2           2679            2679         2
-12                    2            308             308         3
-13                    2            175             175         4
-14                    2            175             175         5
-15                    2            175             175         6
-16                    2            175             175         7
-17                    2            151             151         8
-18                    2            151             151         9
-   reason                                  excluded_records excluded_subjects
-   &lt;chr&gt;                                              &lt;int&gt;             &lt;int&gt;
- 1 Initial qualifying events                              0                 0
- 2 Restricted to first entry                              0                 0
- 3 Age requirement: 18 to 85                              0                 0
- 4 Sex requirement: Female                              395               395
- 5 Prior observation requirement: 30 days                 0                 0
- 6 Future observation requirement: 0 days                 0                 0
- 7 Exit at observation period end date                    0                 0
- 8 Age requirement: 20 to 40                            115               115
- 9 Prior observation requirement: 365 days                0                 0
-10 Initial qualifying events                              0                 0
-11 Restricted to first entry                          11160                 0
-12 Age requirement: 18 to 85                           2371              2371
-13 Sex requirement: Female                              133               133
-14 Prior observation requirement: 30 days                 0                 0
-15 Future observation requirement: 0 days                 0                 0
-16 Exit at observation period end date                    0                 0
-17 Age requirement: 20 to 40                             24                24
-18 Prior observation requirement: 365 days                0                 0</code></pre>
+   cohort_definition_id number_records number_subjects reason_id reason                         excluded_records excluded_subjects
+                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                     &lt;int&gt;             &lt;int&gt;
+ 1                    1            830             830         1 Initial qualifying events                     0                 0
+ 2                    1            830             830         2 Restricted to first entry                     0                 0
+ 3                    1            830             830         3 Age requirement: 18 to 85                     0                 0
+ 4                    1            435             435         4 Sex requirement: Female                     395               395
+ 5                    1            435             435         5 Prior observation requirement…                0                 0
+ 6                    1            435             435         6 Future observation requiremen…                0                 0
+ 7                    1            435             435         7 Exit at observation period en…                0                 0
+ 8                    1            320             320         8 Age requirement: 20 to 40                   115               115
+ 9                    1            320             320         9 Prior observation requirement…                0                 0
+10                    2          13839            2679         1 Initial qualifying events                     0                 0
+11                    2           2679            2679         2 Restricted to first entry                 11160                 0
+12                    2            308             308         3 Age requirement: 18 to 85                  2371              2371
+13                    2            175             175         4 Sex requirement: Female                     133               133
+14                    2            175             175         5 Prior observation requirement…                0                 0
+15                    2            175             175         6 Future observation requiremen…                0                 0
+16                    2            175             175         7 Exit at observation period en…                0                 0
+17                    2            151             151         8 Age requirement: 20 to 40                    24                24
+18                    2            151             151         9 Prior observation requirement…                0                 0</code></pre>
 </div>
 </div>
 </div>
-</section><section id="other-functions-to-update-cohort-start-and-end-dates" class="slide level2"><h2>Other functions to update cohort start and end dates</h2>
+</section></section><section><section id="cohort-manipulation" class="title-slide slide level1 center"><h1>Cohort manipulation</h1>
+
+</section><section id="functions-for-cohort-manipulations" class="slide level2"><h2>Functions for cohort manipulations</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
-<div style="margin-bottom: 15px;">
+<div style="margin-bottom: 25px;">
 
 </div>
 <ul>
-<li class="fragment">
-<p>Updating entry/exit dates to the minimum or maximum of a set of dates:</p>
-<ul>
-<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/entryAtFirstDate.html">entryAtFirstDate()</a></code></p></li>
-<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/entryAtLastDate.html">entryAtLastDate()</a></code></p></li>
-<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtDeath.html">exitAtDeath()</a></code></p></li>
-<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtFirstDate.html">exitAtFirstDate()</a></code></p></li>
-<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtLastDate.html">exitAtLastDate()</a></code></p></li>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/collapseCohorts.html">collapseCohorts()</a></code></li>
 </ul>
-</li>
-<li class="fragment"><p>For instance, we can use <code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtFirstDate.html">exitAtFirstDate()</a></code> to require that that subjects leave the cohort at the first of the the outcome of interest, a censoring event, or the end of observation.</p></li>
-<li class="fragment"><p>Trim cohort start and end date to be within a certain time period: <code><a href="https://ohdsi.github.io/CohortConstructor/reference/trimToDateRange.html">trimToDateRange()</a></code></p></li>
-</ul></section><section id="cohort-manipulation-functions" class="slide level2"><h2>Cohort manipulation functions</h2>
+<div style="margin-bottom: 5px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://darwin-eu.github.io/CDMConnector/reference/intersect_cohorts.html">intersectCohorts()</a></code></li>
+</ul>
+<div style="margin-bottom: 5px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/matchCohorts.html">matchCohorts()</a></code></li>
+</ul>
+<div style="margin-bottom: 5px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/stratifyCohorts.html">stratifyCohorts()</a></code></li>
+</ul>
+<div style="margin-bottom: 5px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/subsetCohorts.html">subsetCohorts()</a></code></li>
+</ul>
+<div style="margin-bottom: 5px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://darwin-eu.github.io/CDMConnector/reference/union_cohorts.html">unionCohorts()</a></code></li>
+</ul>
+<div style="margin-bottom: 5px;">
+
+</div>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/yearCohorts.html">yearCohorts()</a></code></li>
+</ul></section><section id="cohort-manipulation-functions---example" class="slide level2"><h2>Cohort manipulation functions - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
 </div>
 <ul>
-<li class="fragment">For instance, we can generate a new cohort that contains people who had an expsure to both diclofenac and acetaminophen at the same time.</li>
+<li class="fragment">We can generate a new cohort that contains people who had an exposure to both diclofenac and acetaminophen at the same time using <code><a href="https://darwin-eu.github.io/CDMConnector/reference/intersect_cohorts.html">intersectCohorts()</a></code>.</li>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">intersection</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">intersection</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">CohortConstructor</span><span class="fu">::</span><span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/intersectCohorts.html">intersectCohorts</a></span><span class="op">(</span></span>
 <span>  gap <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  mutuallyExclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -941,20 +1067,15 @@
 <span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/settings.html">settings</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">intersection</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 6
-  cohort_definition_id cohort_name              diclofenac acetaminophen
-                 &lt;int&gt; &lt;chr&gt;                         &lt;dbl&gt;         &lt;dbl&gt;
-1                    1 diclofenac                        1             0
-2                    2 acetaminophen                     0             1
-3                    3 diclofenac_acetaminophen          1             1
-  mutually_exclusive   gap
-  &lt;lgl&gt;              &lt;dbl&gt;
-1 TRUE                   0
-2 TRUE                   0
-3 TRUE                   0</code></pre>
+  cohort_definition_id cohort_name              diclofenac acetaminophen mutually_exclusive   gap
+                 &lt;int&gt; &lt;chr&gt;                         &lt;dbl&gt;         &lt;dbl&gt; &lt;lgl&gt;              &lt;dbl&gt;
+1                    1 diclofenac                        1             0 TRUE                   0
+2                    2 acetaminophen                     0             1 TRUE                   0
+3                    3 diclofenac_acetaminophen          1             1 TRUE                   0</code></pre>
 </div>
 </div>
 </div>
-</section><section id="matched-cohort" class="slide level2"><h2>Matched cohort</h2>
+</section><section id="matched-cohort---example" class="slide level2"><h2>Matched cohort - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 25px;">
 
@@ -965,7 +1086,7 @@
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/matchCohorts.html">matchCohorts</a></span><span class="op">(</span></span>
 <span>    cohortId <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    matchSex <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -976,103 +1097,62 @@
 <span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/settings.html">settings</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 8
-  cohort_definition_id cohort_name        target_table_name target_cohort_id
-                 &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;                        &lt;int&gt;
-1                    1 diclofenac         medications                      1
-2                    2 diclofenac_matched medications                      1
-  target_cohort_name match_sex match_year_of_birth match_status
-  &lt;chr&gt;              &lt;lgl&gt;     &lt;lgl&gt;               &lt;chr&gt;       
-1 diclofenac         TRUE      TRUE                target      
-2 diclofenac         TRUE      TRUE                control     </code></pre>
+  cohort_definition_id cohort_name        target_table_name target_cohort_id target_cohort_name match_sex match_year_of_birth
+                 &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;                        &lt;int&gt; &lt;chr&gt;              &lt;lgl&gt;     &lt;lgl&gt;              
+1                    1 diclofenac         medications                      1 diclofenac         TRUE      TRUE               
+2                    2 diclofenac_matched medications                      1 diclofenac         TRUE      TRUE               
+# ℹ 1 more variable: match_status &lt;chr&gt;</code></pre>
 </div>
 </div>
 </div>
-</section><section id="matched-cohort-1" class="slide level2"><h2>Matched cohort</h2>
+</section><section id="matched-cohort---example-1" class="slide level2"><h2>Matched cohort - Example</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 25px;">
 
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   cohort_definition_id number_records number_subjects
                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;
-1                    1            419             419
-2                    2            904             904</code></pre>
+1                    1            417             417
+2                    2            901             901</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14 × 7
-   cohort_definition_id number_records number_subjects reason_id
-                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt;
- 1                    1            830             830         1
- 2                    1            830             830         2
- 3                    1            830             830         3
- 4                    1            435             435         4
- 5                    1            435             435         5
- 6                    1            435             435         6
- 7                    1            435             435         7
- 8                    1            428             428         8
- 9                    1            419             419         9
-10                    2           2694            2694         1
-11                    2           2259            2259         2
-12                    2            914             914         3
-13                    2            906             906         4
-14                    2            904             904         5
-   reason                                         excluded_records
-   &lt;chr&gt;                                                     &lt;int&gt;
- 1 Initial qualifying events                                     0
- 2 Restricted to first entry                                     0
- 3 Age requirement: 18 to 85                                     0
- 4 Sex requirement: Female                                     395
- 5 Prior observation requirement: 30 days                        0
- 6 Future observation requirement: 0 days                        0
- 7 Exit at observation period end date                           0
- 8 Exclude individuals that do not have any match                7
- 9 No possible pairs in observation                              9
-10 First observation per person                                  0
-11 Exclude cases from controls                                 435
-12 Exclude individuals that do not have any match             1345
-13 Exclude individuals not in observation                        8
-14 Exclude individuals to fulfil the ratio                       2
-   excluded_subjects
-               &lt;int&gt;
- 1                 0
- 2                 0
- 3                 0
- 4               395
- 5                 0
- 6                 0
- 7                 0
- 8                 7
- 9                 9
-10                 0
-11               435
-12              1345
-13                 8
-14                 2</code></pre>
+   cohort_definition_id number_records number_subjects reason_id reason                         excluded_records excluded_subjects
+                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                     &lt;int&gt;             &lt;int&gt;
+ 1                    1            830             830         1 Initial qualifying events                     0                 0
+ 2                    1            830             830         2 Restricted to first entry                     0                 0
+ 3                    1            830             830         3 Age requirement: 18 to 85                     0                 0
+ 4                    1            435             435         4 Sex requirement: Female                     395               395
+ 5                    1            435             435         5 Prior observation requirement…                0                 0
+ 6                    1            435             435         6 Future observation requiremen…                0                 0
+ 7                    1            435             435         7 Exit at observation period en…                0                 0
+ 8                    1            428             428         8 Exclude individuals that do n…                7                 7
+ 9                    1            417             417         9 No possible pairs in observat…               11                11
+10                    2           2694            2694         1 First observation per person                  0                 0
+11                    2           2259            2259         2 Exclude cases from controls                 435               435
+12                    2            914             914         3 Exclude individuals that do n…             1345              1345
+13                    2            903             903         4 Exclude individuals not in ob…               11                11
+14                    2            901             901         5 Exclude individuals to fulfil…                2                 2</code></pre>
 </div>
 </div>
 </div>
-</section><section id="cohortconstructor-1" class="slide level2 title-slide center"><h2><a href="https://ohdsi.github.io/CohortConstructor/reference/index.html">CohortConstructor</a></h2>
-<div style="margin-bottom: 25px;">
-
-</div>
+</section></section><section id="cohortconstructor-1" class="title-slide slide level1 center"><h1><a href="https://ohdsi.github.io/CohortConstructor/reference/index.html">CohortConstructor</a></h1>
 <p>Refer to the package website to see all the available functionalities to create and curate cohorts in your OMOP studies :)</p>
-<div style="margin-bottom: 25px;">
-
-</div>
 <div class="title-slide-logos">
 <p><img src="logoCC.png" alt="Logo 1" class="logo"><img src="logoHDS.png" alt="Logo 2" class="logo"><img src="logoOHDSI.png" alt="Logo 3" class="logo"></p>
 </div>
 <div class="footer footer-default">
-<p><a href="https://cran.r-project.org/package=IncidencePrevalence">CohortConstructor</a> software demonstration</p>
+<p>Developed by Edward Burn, Marti Catala, Nuria Mercade-Besora, Marta Alcalde-Herraiz, Mike Du, Yuchen Guo.</p>
 </div>
-</section></section>
+</section>
 </div>
   </div>
 
