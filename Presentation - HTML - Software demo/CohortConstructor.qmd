@@ -57,7 +57,7 @@ An R package to build and curate cohorts in the OMOP Common Data Model
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   Soon in CRAN?? :) 
+-   Available from [CRAN](https://cran.r-project.org/web/packages/CohortConstructor/CohortConstructor.pdf){.link}.
 
 
 ## Function sets
@@ -155,6 +155,7 @@ An R package to build and curate cohorts in the OMOP Common Data Model
 library(CDMConnector)
 library(CodelistGenerator)
 library(CohortConstructor)
+library(CohortCharacteristics)
 library(dplyr)
 ```
 
@@ -228,7 +229,20 @@ cohortCount(cdm$age_cohort)
 attrition(cdm$age_cohort)
 ```
 
-## Concept based - Example
+
+## Demographic based - Example
+
+::: {style="margin-bottom: 20px;"}
+:::
+
+. . .
+
+```{r}
+# CohortCharacteristics R package
+summary(cdm$age_cohort) |> plotCohortAttrition()
+```
+
+## Concept based
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
@@ -400,15 +414,42 @@ cdm$medications <- cdm$medications %>%
   )
 ```
 
-## Requirement functions - Example
+## Requirement functions - Example{.incremental:FALSE}
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
-```{r}
-attrition(cdm$medications)
+Diclofenac attrition:
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+
+```{r, echo=FALSE}
+summary(cdm$medications) |> 
+  visOmopResults::filterSettings(cohort_name == "diclofenac") |>
+  plotCohortAttrition()
+```
+
+## Requirement functions - Example{.incremental:FALSE}
+
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+Acetaminophen attrition:
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+
+```{r, echo=FALSE}
+summary(cdm$medications) |> 
+  visOmopResults::filterSettings(cohort_name == "acetaminophen") |>
+  plotCohortAttrition()
 ```
 
 ## Requirement functions - Example
@@ -429,9 +470,46 @@ cdm$medications_no_gi_bleed <- cdm$medications %>%
                              window = c(-Inf, 0), 
                              negate = TRUE,
                              name = "medications_no_gi_bleed") 
-attrition(cdm$medications_no_gi_bleed)
 ```
 
+## Requirement functions - Example{.incremental:FALSE}
+
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+Diclofenac attrition:
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+```{r, echo=FALSE}
+summary(cdm$medications) |> 
+  visOmopResults::filterSettings(cohort_name == "diclofenac") |>
+  plotCohortAttrition()
+```
+
+
+
+## Requirement functions - Example{.incremental:FALSE}
+
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+Acetaminophen attrition:
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+```{r, echo=FALSE}
+summary(cdm$medications) |> 
+  visOmopResults::filterSettings(cohort_name == "acetaminophen") |>
+  plotCohortAttrition()
+```
 
 # Update cohort start and end dates
 
@@ -515,8 +593,46 @@ cdm$medications_trimmed <- cdm$medications %>%
   trimDemographics(ageRange = list(c(20, 40)),
                    minPriorObservation = 365,
                    name = "medications_trimmed")
+```
 
-attrition(cdm$medications_trimmed)
+
+## Update cohort start and end dates - Example{.incremental:FALSE}
+
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+Diclofenac attrition:
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+```{r, echo=FALSE}
+summary(cdm$medications) |> 
+  visOmopResults::filterSettings(cohort_name == "diclofenac") |>
+  plotCohortAttrition()
+```
+
+
+
+## Update cohort start and end dates - Example{.incremental:FALSE}
+
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+Acetaminophen attrition:
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+```{r, echo=FALSE}
+summary(cdm$medications) |> 
+  visOmopResults::filterSettings(cohort_name == "acetaminophen") |>
+  plotCohortAttrition()
 ```
 
 # Cohort manipulation
@@ -622,8 +738,14 @@ cohortCount(cdm$diclofenac_match)
 
 . . .
 
-```{r}
-attrition(cdm$diclofenac_match)
+- Attrition for the matched cohort
+
+. . .
+
+```{r, echo=FALSE}
+summary(cdm$diclofenac_match) |> 
+  visOmopResults::filterSettings(cohort_name == "diclofenac_matched") |>
+  plotCohortAttrition()
 ```
 
 
